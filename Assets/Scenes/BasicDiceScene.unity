@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 61059253}
   - component: {fileID: 61059252}
   - component: {fileID: 61059251}
+  - component: {fileID: 61059254}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -168,7 +169,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &61059252
@@ -191,7 +192,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: dc253bf1beb969246bc98b91b8aaf9b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -221,6 +222,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 61059249}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &61059254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61059249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71cb4846b01ef624cb6e37e50b5bf1d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &704587350
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,14 +310,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 704587350}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0, y: 0.9945219, z: -0.10452846, w: 0}
+  m_LocalPosition: {x: 0, y: 2.88, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 12, y: 180, z: 0}
 --- !u!1 &856527714
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +440,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1081757106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.13290024, y: -0.16096687, z: -0.01851654}
+  m_LocalPosition: {x: 0.13290024, y: -1.57, z: -0.01851654}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -513,11 +526,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2003762670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1831d8b60d12a724a8ae6dcee5473c79, type: 3}
+  m_Script: {fileID: 11500000, guid: aee8a8bc46c02c04d982ae76b2495957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dice: {fileID: 2825336085666588125, guid: 19f83986a4cc7fe42acf3aed2992bfcb, type: 3}
-  spawnCoordinates: {x: 0, y: 6, z: 0}
+  dice: {fileID: 3154960846117038255, guid: 67201f15395f86841bf8db1036f09b0d, type: 3}
+  side: {fileID: 7147089033737793686, guid: 0aadc750549641940855d0f08b63194a, type: 3}
+  spawnCoordinates: {x: 0, y: 3, z: 0}
   forceModifier: 1
   torqueModifier: 1000
 --- !u!4 &2003762672
