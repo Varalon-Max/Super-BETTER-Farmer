@@ -42,7 +42,7 @@ namespace DiceMechanics
         private void Update()
         {
             // Draws ray from center of the dice to the center of current side
-            Debug.DrawRay(transform.position, transform.TransformDirection(_sideVectors[_sideId] * 10), Color.green);
+            //Debug.DrawRay(transform.position, transform.TransformDirection(_sideVectors[_sideId] * 10), Color.green);
         }
 
         private Vector3 GetCenterVector(Vector3[] vertexes)
@@ -70,10 +70,7 @@ namespace DiceMechanics
             if (speed < MathHelper.SpeedDelta && Quaternion.Angle(_previousRotation, rotation) < MathHelper.AngleDelta)
             {
                 _rotationFinished = true;
-                //Debug.Log("Rotation finished");
-        
-                //Debug.Log(localUp);
-                Debug.Log(GetSideId());
+                GetSideId();
                 //_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             }
             else
