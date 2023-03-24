@@ -7,30 +7,31 @@ namespace DiceMechanics
 {
     public class DiceScript : MonoBehaviour
     {
-        [SerializeField] private GameObject side;
-        [SerializeField] private GameObject prefab;
-        [SerializeField] private int sideId;
+        private int _sideId;
 
         private Rigidbody _rigidbody;
-
-        private Vector3 _trueUp = Vector3.up;
-
+        
         private bool _rotationFinished;
 
         private Quaternion _previousRotation;
 
         private Vector3[] _sideVectors;
 
-        void Start()
+        private void Awake()
         {
             InitSideVectors();
+        }
+
+        private void Start()
+        {
+            
             _rigidbody = GetComponent<Rigidbody>();
             _rotationFinished = false;
         }
 
         private void InitSideVectors()
         {
-            var vertexesPerSide = CalculateDodecahedronVertexes();
+            var vertexesPerSide = CalculateDodecahedronVertexesPerSide();
             _sideVectors = new Vector3[vertexesPerSide.Length];
             for (var i = 0; i < vertexesPerSide.Length; i++)
             {
@@ -38,17 +39,10 @@ namespace DiceMechanics
             }
         }
 
-        // Update is called once per frame
-
-
         private void Update()
         {
-            // foreach (var sideVector in _sideVectors)
-            // {
-            //     Debug.DrawRay(transform.position, transform.TransformDirection(sideVector * 10), Color.green);
-            //    // Debug.DrawLine(transform.position, GetCenterVector(sideVectors) * 10, Color.green);
-            // }
-            Debug.DrawRay(transform.position, transform.TransformDirection(_sideVectors[sideId] * 10), Color.green);
+            // Draws ray from center of the dice to the center of current side
+            Debug.DrawRay(transform.position, transform.TransformDirection(_sideVectors[_sideId] * 10), Color.green);
         }
 
         private Vector3 GetCenterVector(Vector3[] vertexes)
@@ -63,7 +57,53 @@ namespace DiceMechanics
             return center;
         }
 
-        private Vector3[][] CalculateDodecahedronVertexes()
+        private void FixedUpdate()
+        {
+            if (_rotationFinished)
+            {
+                return;
+            }
+        
+            float speed = _rigidbody.velocity.magnitude;
+            var rotation = _rigidbody.rotation;
+        
+            if (speed < MathHelper.SpeedDelta && Quaternion.Angle(_previousRotation, rotation) < MathHelper.AngleDelta)
+            {
+                _rotationFinished = true;
+                //Debug.Log("Rotation finished");
+        
+                //Debug.Log(localUp);
+                Debug.Log(GetSideId());
+                //_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            }
+            else
+            {
+                _previousRotation = rotation;
+            }
+        }
+
+        private int GetSideId()
+        {
+            Vector3 localUp = Vector3.up;
+
+            float minAngle = 360;
+            int minAngleId = -1;
+
+            for (int i = 0; i < _sideVectors.Length; i++)
+            {
+                float angle;
+                if ((angle = Vector3.Angle(transform.TransformDirection(_sideVectors[i]), (localUp))) < minAngle)
+                {
+                    minAngle = angle;
+                    minAngleId = i;
+                }
+            }
+
+            _sideId = minAngleId;
+            return minAngleId;
+        }
+
+        private static Vector3[][] CalculateDodecahedronVertexesPerSide()
         {
             var fDouble = (1 + Math.Sqrt(5)) / 2;
             var gDouble = 1 / fDouble;
@@ -114,63 +154,6 @@ namespace DiceMechanics
             vertexesPerSide[11] = new[] { vertexes[6], vertexes[7], vertexes[10], vertexes[11], vertexes[19] };
 
             return vertexesPerSide;
-        }
-
-        private void FixedUpdate()
-        {
-            if (_rotationFinished)
-            {
-                return;
-            }
-        
-            float speed = _rigidbody.velocity.magnitude;
-            var rotation = _rigidbody.rotation;
-        
-            if (speed < MathHelper.SpeedDelta && Quaternion.Angle(_previousRotation, rotation) < MathHelper.AngleDelta)
-            {
-                _rotationFinished = true;
-                //Debug.Log("Rotation finished");
-        
-                //Debug.Log(localUp);
-                Debug.Log(GetSideId());
-                //_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-            }
-            else
-            {
-                _previousRotation = rotation;
-            }
-        }
-
-        private Face GetTopFace()
-        {
-            var localUp = transform.up;
-            Debug.Log(localUp);
-            var angle = Vector3.Angle(_trueUp, localUp);
-            Debug.Log(angle);
-
-            Debug.Log(GetSideId());
-
-            return Face.Fox;
-        }
-
-        private int GetSideId()
-        {
-            Vector3 localUp = transform.up;
-
-            float minAngle = 360;
-            int minAngleId = -1;
-
-            float angle;
-            for (int i = 0; i < _sideVectors.Length; i++)
-            {
-                if ((angle = Vector3.Angle(_sideVectors[i], localUp)) < minAngle)
-                {
-                    minAngle = angle;
-                    minAngleId = i;
-                }
-            }
-
-            return minAngleId;
         }
     }
 }
