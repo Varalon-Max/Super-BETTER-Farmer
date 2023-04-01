@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 61059253}
   - component: {fileID: 61059252}
   - component: {fileID: 61059251}
-  - component: {fileID: 61059254}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -222,18 +221,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 61059249}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &61059254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 61059249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71cb4846b01ef624cb6e37e50b5bf1d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &704587350
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,6 +487,70 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 1, z: 0}
   m_Center: {x: 0, y: 0.5, z: -5}
+--- !u!1 &1838743781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1838743784}
+  - component: {fileID: 1838743783}
+  - component: {fileID: 1838743782}
+  m_Layer: 0
+  m_Name: GameLevelInitializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1838743782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838743781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0370c9aa9e48d9abf77bb3d17e3f92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1838743783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838743781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecfaacac89be457d985c7f042483335e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dice:
+  - {fileID: -5588498673489840457, guid: 67201f15395f86841bf8db1036f09b0d, type: 3}
+  - {fileID: -5588498673489840457, guid: 67201f15395f86841bf8db1036f09b0d, type: 3}
+  _diceControllerData:
+    <SpawnCoordinates>k__BackingField: {x: 0, y: 5, z: 0}
+    <ForceModifier>k__BackingField: 0
+    <TorqueModifier>k__BackingField: 0
+--- !u!4 &1838743784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838743781}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.13290024, y: -1.32, z: -0.01851654}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2003762670
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +560,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2003762672}
-  - component: {fileID: 2003762671}
   m_Layer: 0
   m_Name: DiceRoller
   m_TagString: Untagged
@@ -517,23 +567,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2003762671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2003762670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aee8a8bc46c02c04d982ae76b2495957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dice: {fileID: 3154960846117038255, guid: 67201f15395f86841bf8db1036f09b0d, type: 3}
-  side: {fileID: 7147089033737793686, guid: 0aadc750549641940855d0f08b63194a, type: 3}
-  spawnCoordinates: {x: 0, y: 3, z: 0}
-  forceModifier: 1
-  torqueModifier: 1000
 --- !u!4 &2003762672
 Transform:
   m_ObjectHideFlags: 0

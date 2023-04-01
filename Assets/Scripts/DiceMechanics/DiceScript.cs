@@ -1,31 +1,33 @@
 using System;
 using System.Collections.Generic;
-using DefaultNamespace;
+using Core;
 using UnityEngine;
 
 namespace DiceMechanics
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class DiceScript : MonoBehaviour
     {
+        public Rigidbody Rigidbody => _rigidbody;
         private int _sideId;
 
         private Rigidbody _rigidbody;
-        
+
         private bool _rotationFinished;
 
         private Quaternion _previousRotation;
 
-        private Vector3[] _sideVectors;
+        private static Vector3[] _sideVectors;
 
-        private void Awake()
+        public void Init()
         {
+            _rigidbody = GetComponent<Rigidbody>();
+            _rotationFinished = false;
             InitSideVectors();
         }
 
-        private void Start()
+        public void StartRotation()
         {
-            
-            _rigidbody = GetComponent<Rigidbody>();
             _rotationFinished = false;
         }
 
@@ -42,10 +44,10 @@ namespace DiceMechanics
         private void Update()
         {
             // Draws ray from center of the dice to the center of current side
-            //Debug.DrawRay(transform.position, transform.TransformDirection(_sideVectors[_sideId] * 10), Color.green);
+            Debug.DrawRay(transform.position, transform.TransformDirection(_sideVectors[_sideId] * 10), Color.green);
         }
 
-        private Vector3 GetCenterVector(Vector3[] vertexes)
+        private static Vector3 GetCenterVector(Vector3[] vertexes)
         {
             Vector3 center = Vector3.zero;
             foreach (var vertex in vertexes)
@@ -59,19 +61,18 @@ namespace DiceMechanics
 
         private void FixedUpdate()
         {
-            if (_rotationFinished)
-            {
-                return;
-            }
-        
+            // if (_rotationFinished)
+            // {
+            //     return;
+            // }
+
             float speed = _rigidbody.velocity.magnitude;
             var rotation = _rigidbody.rotation;
-        
+
             if (speed < MathHelper.SpeedDelta && Quaternion.Angle(_previousRotation, rotation) < MathHelper.AngleDelta)
             {
                 _rotationFinished = true;
                 GetSideId();
-                //_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             }
             else
             {
