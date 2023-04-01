@@ -17,6 +17,7 @@ namespace Core
 
         private void Awake()
         {
+            // ProjectUpdater.Instance;
             _inputView = new ExternalDeviceInputView();
             _diceController = new DiceController(_diceControllerData, _dice);
             //_diceController.Initialize();
