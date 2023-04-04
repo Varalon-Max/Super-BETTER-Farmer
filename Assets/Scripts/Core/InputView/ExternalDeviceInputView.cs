@@ -9,7 +9,7 @@ namespace Core.InputView
 
         public ExternalDeviceInputView()
         {
-            ProjectUpdater.Instance.UpdateCaller += OnUpdate;
+            ProjectUpdater.Instance.UpdateCalled += OnUpdate;
         }
     
         public void ResetOneTimeActions()
@@ -24,7 +24,7 @@ namespace Core.InputView
 
         public void Dispose()
         {
-            ProjectUpdater.Instance.UpdateCaller -= OnUpdate;
+            ProjectUpdater.Instance.UpdateCalled -= OnUpdate;
         }
     }
 }

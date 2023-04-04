@@ -22,9 +22,9 @@ namespace Core
         }
         private bool _isPaused;
         
-        public event Action UpdateCaller;
-        public event Action FixedUpdateCaller;
-        public event Action LateUpdateCaller;
+        public event Action UpdateCalled;
+        public event Action FixedUpdateCalled;
+        public event Action LateUpdateCalled;
         
         private void Awake()
         {
@@ -44,7 +44,7 @@ namespace Core
             {
                 return;
             }
-            UpdateCaller?.Invoke();
+            UpdateCalled?.Invoke();
         }
 
         private void FixedUpdate()
@@ -53,7 +53,7 @@ namespace Core
             {
                 return;
             }
-            FixedUpdateCaller?.Invoke();
+            FixedUpdateCalled?.Invoke();
         }
 
         private void LateUpdate()
@@ -62,14 +62,14 @@ namespace Core
             {
                 return;
             }
-            LateUpdateCaller?.Invoke();
+            LateUpdateCalled?.Invoke();
         }
     }
 
     public interface IProjectUpdater
     {
-        event Action UpdateCaller;
-        event Action FixedUpdateCaller;
-        event Action LateUpdateCaller;
+        event Action UpdateCalled;
+        event Action FixedUpdateCalled;
+        event Action LateUpdateCalled;
     }
 }

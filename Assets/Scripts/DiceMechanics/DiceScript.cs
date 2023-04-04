@@ -19,44 +19,10 @@ namespace DiceMechanics
 
         private static Vector3[] _sideVectors;
 
-        public void Init()
-        {
-            _rigidbody = GetComponent<Rigidbody>();
-            _rotationFinished = false;
-            InitSideVectors();
-        }
-
-        public void StartRotation()
-        {
-            _rotationFinished = false;
-        }
-
-        private void InitSideVectors()
-        {
-            var vertexesPerSide = CalculateDodecahedronVertexesPerSide();
-            _sideVectors = new Vector3[vertexesPerSide.Length];
-            for (var i = 0; i < vertexesPerSide.Length; i++)
-            {
-                _sideVectors[i] = GetCenterVector(vertexesPerSide[i]);
-            }
-        }
-
         private void Update()
         {
             // Draws ray from center of the dice to the center of current side
             Debug.DrawRay(transform.position, transform.TransformDirection(_sideVectors[_sideId] * 10), Color.green);
-        }
-
-        private static Vector3 GetCenterVector(Vector3[] vertexes)
-        {
-            Vector3 center = Vector3.zero;
-            foreach (var vertex in vertexes)
-            {
-                center += Vector3.Normalize(vertex);
-            }
-
-            center /= vertexes.Length;
-            return center;
         }
 
         private void FixedUpdate()
@@ -80,9 +46,31 @@ namespace DiceMechanics
             }
         }
 
-        private int GetSideId()
+        public void Init()
         {
-            Vector3 localUp = Vector3.up;
+            _rigidbody = GetComponent<Rigidbody>();
+            _rotationFinished = false;
+            InitSideVectors();
+        }
+
+        public void StartRotation()
+        {
+            _rotationFinished = false;
+        }
+
+        private void InitSideVectors()
+        {
+            var vertexesPerSide = CalculateDodecahedronVertexesPerSide();
+            _sideVectors = new Vector3[vertexesPerSide.Length];
+            for (var i = 0; i < vertexesPerSide.Length; i++)
+            {
+                _sideVectors[i] = GetCenterVector(vertexesPerSide[i]);
+            }
+        }
+
+        private void GetSideId()
+        {
+            Vector3 up = Vector3.up;
 
             float minAngle = 360;
             int minAngleId = -1;
@@ -90,7 +78,7 @@ namespace DiceMechanics
             for (int i = 0; i < _sideVectors.Length; i++)
             {
                 float angle;
-                if ((angle = Vector3.Angle(transform.TransformDirection(_sideVectors[i]), (localUp))) < minAngle)
+                if ((angle = Vector3.Angle(transform.TransformDirection(_sideVectors[i]), (up))) < minAngle)
                 {
                     minAngle = angle;
                     minAngleId = i;
@@ -98,7 +86,18 @@ namespace DiceMechanics
             }
 
             _sideId = minAngleId;
-            return minAngleId;
+        }
+
+        private static Vector3 GetCenterVector(Vector3[] vertexes)
+        {
+            Vector3 center = Vector3.zero;
+            foreach (var vertex in vertexes)
+            {
+                center += Vector3.Normalize(vertex);
+            }
+
+            center /= vertexes.Length;
+            return center;
         }
 
         private static Vector3[][] CalculateDodecahedronVertexesPerSide()

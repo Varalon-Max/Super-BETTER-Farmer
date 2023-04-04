@@ -7,14 +7,11 @@ namespace DiceMechanics.DiceController
 {
     public class DiceController
     {
-        public DiceController(DiceControllerData data, List<DiceScript> dices)
+        public DiceController(DiceControllerData data, List<DiceScript> dicePrefabs)
         {
             _data = data;
             _dices = new List<DiceScript>();
-            foreach (var dice in dices)
-            {
-                InitDice(dice);
-            }
+            InitDices(dicePrefabs);
             SetDicesOff();
         }
 
@@ -22,13 +19,13 @@ namespace DiceMechanics.DiceController
 
         private readonly List<DiceScript> _dices;
 
-        // public void Initialize()
-        // {
-        //     foreach (var dice in _dices)
-        //     {
-        //         
-        //     }
-        // }
+        private void InitDices(List<DiceScript> dicePrefabs)
+        {
+            foreach (var dice in dicePrefabs)
+            {
+                InitDice(dice);
+            }
+        }
         
         private void InitDice(DiceScript dice)
         {
