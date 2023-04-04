@@ -1,84 +1,27 @@
-using System.Collections;
 using System.Collections.Generic;
-using SpawnHandler;
 using UnityEngine;
 
-public class AnimalSpawner : MonoBehaviour
+namespace SpawnHandler
 {
-    [SerializeField] private List<GameObject> _firstTierSpawners;
-    [SerializeField] private List<GameObject> _secondTierSpawners;
-    [SerializeField] private List<GameObject> _thirdTierSpawners;
-    [SerializeField] private List<GameObject> _fourthTierSpawners;
-    [SerializeField] private List<GameObject> _fifthTierSpawners;
-
-    [SerializeField] private List<GameObject> _animalTokens;
-
-    public void SpawnTier(int numberOfTier)
+    public class AnimalSpawner : MonoBehaviour
     {
-        switch (numberOfTier)
+        [SerializeField] private List<GameObject> _spawners;
+
+        [SerializeField] private List<GameObject> _animalTokens;
+        [SerializeField] private float _spawnersOffset;
+
+        public void SpawnTier(int numberOfTier)
         {
-            case 1:
-                foreach (var spawner in _firstTierSpawners)
-                {
-                    if (spawner.transform.childCount == 0)
-                    {
-                        Instantiate(_animalTokens[0], spawner.transform.position, spawner.transform.rotation,
-                            spawner.transform);
-                        break;
-                    }
-                }
-                Debug.Log("Add to counter");
-                break;
-            case 2:
-                foreach (var spawner in _secondTierSpawners)
-                {
-                    if (spawner.transform.childCount == 0)
-                    {
-                        Instantiate(_animalTokens[0], spawner.transform.position, spawner.transform.rotation,
-                            spawner.transform);
-                        break;
-                    }
-                }
-                Debug.Log("Add to counter");
-                break;
-            case 3:
-                foreach (var spawner in _thirdTierSpawners)
-                {
-                    if (spawner.transform.childCount == 0)
-                    {
-                        Instantiate(_animalTokens[0], spawner.transform.position, spawner.transform.rotation,
-                            spawner.transform);
-                        break;
-                    }
-                }
-                Debug.Log("Add to counter");
-                break;
-            case 4:
-                foreach (var spawner in _fourthTierSpawners)
-                {
-                    if (spawner.transform.childCount == 0)
-                    {
-                        Instantiate(_animalTokens[0], spawner.transform.position, spawner.transform.rotation,
-                            spawner.transform);
-                        break;
-                    }
-                }
-                Debug.Log("Add to counter");
-                break;
-            case 5:
-                foreach (var spawner in _fifthTierSpawners)
-                {
-                    if (spawner.transform.childCount == 0)
-                    {
-                        Instantiate(_animalTokens[0], spawner.transform.position, spawner.transform.rotation,
-                            spawner.transform);
-                        break;
-                    }
-                }
-                Debug.Log("Add to counter");
-                break;
+            int numberOfSpawners = 6 - numberOfTier;
+            int spawnTier = numberOfTier - 1;
+
+            if (_spawners[spawnTier].transform.childCount<numberOfSpawners)
+            {
+                Instantiate(_animalTokens[spawnTier],
+                    _spawners[spawnTier].transform.position +new Vector3(_spawnersOffset*_spawners[spawnTier].transform.childCount, 0,0),
+                    Quaternion.Euler(0,90,90), 
+                    _spawners[spawnTier].transform);
+            }
         }
     }
-
-    
 }
